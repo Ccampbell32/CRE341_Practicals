@@ -179,6 +179,8 @@ MonoBehaviour:
   AIState_Patrol: {fileID: 982176905}
   AIState_Chase: {fileID: 1930435376}
   AIState_Attack: {fileID: 1737630652}
+  attackDamage: 20
+  attackCooldown: 1
 --- !u!95 &320919903
 Animator:
   serializedVersion: 7
@@ -1665,7 +1667,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1571807527175990118, guid: 2e1a41d7362b3dd45bc95871553172dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1559428519}
   m_SourcePrefab: {fileID: 100100000, guid: 2e1a41d7362b3dd45bc95871553172dc, type: 3}
 --- !u!4 &1451211069 stripped
 Transform:
@@ -1815,6 +1820,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1571807527175990118, guid: 2e1a41d7362b3dd45bc95871553172dc, type: 3}
   m_PrefabInstance: {fileID: 1313956645}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1559428519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559428518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270e3378c19648f489e2154ecc5319e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &1606607954
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,12 +25,31 @@ public class AI_FSM : MonoBehaviour
     private const string FSM_Tired = "AI_Tired";
     private const string FSM_AttackInRange = "PlayerInAttackRange";
 
+    //Attack variables
+    [SerializeField] private float attackDamage = 20f; // Damage dealt to the player
+    [SerializeField] private float attackCooldown = 1f; // Time between attacks
+    private float lastAttackTime;
+
+    //Speed increase
+    [SerializeField] private float npcSpeed = 2f; // Initial speed
+    private float speedIncreaseTimer = 0f; // Timer for speed increase
+    private UnityEngine.AI.NavMeshAgent agent;
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // set initial player distance to infinity
         distanceToPlayer = Mathf.Infinity;
         fsm_anim = GetComponent<Animator>();
+        
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.speed = npcSpeed; // Set initial speed
+        }
     }
 
     // Update is called once per frame
@@ -62,6 +81,19 @@ public class AI_FSM : MonoBehaviour
     void FixedUpdate()
     {
         TopLevelFSMProcessing(); // process the top level FSM - every 1/60th of a second is fast enough
+       
+        speedIncreaseTimer += Time.deltaTime;
+        if (speedIncreaseTimer >= 10f)
+        {
+            npcSpeed += 1f; // Increase speed by 1
+            speedIncreaseTimer = 0f; // Reset the timer
+        }
+
+        TopLevelFSMProcessing();
+        if (agent != null)
+        {
+            agent.speed = npcSpeed; // Update the speed based on the current `npcSpeed`
+        }
     }
 
     float CheckPlayerDistance()
@@ -76,6 +108,7 @@ public class AI_FSM : MonoBehaviour
         //Debug.Log("Player Visible = " + playerVisible);
         if (playerVisible)
         {
+            float distance = CheckPlayerDistance();
             // note that hysterisis is used to prevent the FSM from flickering between states
             if ( (CheckPlayerDistance() < chaseDistance - chaseHysterisis)) // if the player is within the chase distance, chase the player
             {
@@ -95,6 +128,19 @@ public class AI_FSM : MonoBehaviour
             fsm_anim.SetBool(FSM_AttackInRange, false);
         }
     }
+    void AttackPlayer()
+    {
+        if (Time.time >= lastAttackTime + attackCooldown)
+        {
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(attackDamage); // Deal damage to the player
+                lastAttackTime = Time.time; // Reset the attack timer
+            }
+        }
+    }
+
 
     void OnDrawGizmos()
     {
