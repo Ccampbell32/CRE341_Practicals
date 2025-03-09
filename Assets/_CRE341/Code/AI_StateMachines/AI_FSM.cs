@@ -26,6 +26,7 @@ public class AI_FSM : MonoBehaviour
     private const string FSM_AttackInRange = "PlayerInAttackRange";
 
     //Attack variables
+    public bool isAttacking = false;
     public float attackDamage { get; private set; } = 20f;
 
     //Speed increase

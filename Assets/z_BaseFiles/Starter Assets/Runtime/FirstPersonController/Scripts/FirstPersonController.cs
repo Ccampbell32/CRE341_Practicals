@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 #endif
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening.Core.Easing;
 
 namespace StarterAssets
 {
@@ -271,5 +272,19 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
-	}
+        void OnDeath()
+        {
+            // ... (other code) ...
+
+            GameManager.instance.OnPlayerDeath(); // Call the OnPlayerDeath method in the GameManager
+        }
+        void OnDestroy()
+        {
+            GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
+
+        }
+
+
+
+    }
 }
