@@ -26,9 +26,7 @@ public class AI_FSM : MonoBehaviour
     private const string FSM_AttackInRange = "PlayerInAttackRange";
 
     //Attack variables
-    [SerializeField] private float attackDamage = 20f; // Damage dealt to the player
-    [SerializeField] private float attackCooldown = 1f; // Time between attacks
-    private float lastAttackTime;
+    public float attackDamage { get; private set; } = 20f;
 
     //Speed increase
     [SerializeField] private float npcSpeed = 2f; // Initial speed
@@ -128,18 +126,7 @@ public class AI_FSM : MonoBehaviour
             fsm_anim.SetBool(FSM_AttackInRange, false);
         }
     }
-    void AttackPlayer()
-    {
-        if (Time.time >= lastAttackTime + attackCooldown)
-        {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(attackDamage); // Deal damage to the player
-                lastAttackTime = Time.time; // Reset the attack timer
-            }
-        }
-    }
+  
 
 
     void OnDrawGizmos()
