@@ -107,8 +107,7 @@ public class GameManager : MonoBehaviour
     {
 
         GameObject.Find("finalSurvivalTimeText").GetComponent<Text>().text = string.Format("Final Survival Time: {0:00}:{1:00}", finalMinutes, finalSeconds);
-        // ... other code ...
-    }
+            }
     private void ShowReloadMenu()
     {
         
