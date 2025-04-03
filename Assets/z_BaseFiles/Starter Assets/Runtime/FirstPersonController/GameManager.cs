@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject npcPrefab; 
-    public float spawnInterval = 120f; // Time in seconds to spawn NPCs
+    public GameObject npcPrefab;
+    private Vector3 lastSpawnPosition = Vector3.zero;
+
     private bool isGameActive = true; // To track if the game is active
     public float timer;
     public Text survivalTimeText;
@@ -33,14 +34,43 @@ public class GameManager : MonoBehaviour
     public int seconds;
     private int finalMinutes;
     private int finalSeconds;
+    private IEnumerator SpawnNPCCoroutine()
+    {
+        while (true)
+        {
+            SpawnNPC();
+            yield return new WaitForSeconds(120); // Wait for 120 seconds
+        }
+    }
 
     void Start()
     {
-        timer = spawnInterval;
+        StartCoroutine(SpawnNPCCoroutine());
         survivalTime = 0f;
-        StartCoroutine(SpawnNPCs());
+      
         GameObject.Find("ReloadMenu").SetActive(false);
     }
+
+    private void SpawnNPC()
+    {
+        // If this is the first spawn, just spawn at a random position
+        if (lastSpawnPosition == Vector3.zero)
+        {
+            lastSpawnPosition = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
+            Instantiate(npcPrefab, lastSpawnPosition, Quaternion.identity);
+            return;
+        }
+
+        // Calculate a new spawn position near the last NPC
+        Vector3 newSpawnPosition = lastSpawnPosition + new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
+
+        // Instantiate the new NPC
+        Instantiate(npcPrefab, newSpawnPosition, Quaternion.identity);
+
+        // Update the last spawn position
+        lastSpawnPosition = newSpawnPosition;
+    }
+
 
     public void Update()
      
@@ -68,36 +98,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnNPCs()
-    {
-        while (isGameActive)
-        {
-            SpawnNPC();
-            yield return new WaitForSeconds(spawnInterval);
-        }
-    }
 
-    private void SpawnNPC()
-    {
-        // Get a random position on the NavMesh
-        Vector3 randomPosition = GetRandomNavMeshPosition();
-        if (randomPosition != Vector3.zero)
-        {
-            Instantiate(npcPrefab, randomPosition, Quaternion.identity);
-        }
-    }
 
-    private Vector3 GetRandomNavMeshPosition()
-    {
-        // Generate a random point within the bounds of the NavMesh
-        Vector3 randomPoint = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)); // Adjust range as needed
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
-        {
-            return hit.position; 
-        }
-        return Vector3.zero; 
-    }
+   
 
     public void PlayerDestroyed()
     {
