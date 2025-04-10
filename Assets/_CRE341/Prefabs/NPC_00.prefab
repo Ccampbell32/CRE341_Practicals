@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 7247854955586518179}
   - component: {fileID: 6829640572068802752}
   - component: {fileID: 1869486064674661586}
+  - component: {fileID: 2412333481325182621}
   m_Layer: 7
   m_Name: NPC_00
   m_TagString: NPC
@@ -372,9 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005a2f42c752ea045b3487a6069cfa19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1571807527175990118, guid: 2e1a41d7362b3dd45bc95871553172dc, type: 3}
   distanceToPlayer: 0
-  playerVisible: 1
+  playerVisible: 0
   chaseDistance: 20
   attackDistance: 5
   chaseHysterisis: 2
@@ -382,7 +383,7 @@ MonoBehaviour:
   AIState_Patrol: {fileID: 4354199076913077305}
   AIState_Chase: {fileID: 4642529140918174134}
   AIState_Attack: {fileID: 2705283658582049431}
-  isAttacking: 0
+  isAttacking: 1
   npcSpeed: 2
 --- !u!195 &1869486064674661586
 NavMeshAgent:
@@ -406,3 +407,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2412333481325182621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527243561943574065}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7307097, y: 1, z: 0.758831}
+  m_Center: {x: 0.007252872, y: 0, z: -0.021131516}

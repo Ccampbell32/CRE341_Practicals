@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Top_FSM_Attack : StateMachineBehaviour
 {
-    
+    public float attackDamage = 10f;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // reference to the AI_FSM script
@@ -28,11 +29,10 @@ public class Top_FSM_Attack : StateMachineBehaviour
             // Reset the attack flag
             aiFSM.isAttacking = false;
 
-            
+           
         }
     }
 
-    
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         

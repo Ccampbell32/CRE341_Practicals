@@ -266,7 +266,7 @@ AnimatorStateMachine:
     m_Position: {x: 570, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1189454480550536258}
-    m_Position: {x: 570, y: 590, z: 0}
+    m_Position: {x: 570, y: 600, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -289,3 +289,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a4cf868fb505843ab0bc28625171ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 10
